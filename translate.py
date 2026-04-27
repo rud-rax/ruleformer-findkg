@@ -57,9 +57,10 @@ def run(translator, data_loader, id2r, mode, optimizer, device, padding, epoch, 
             optimizer.step_and_update_lr()
             optimizer.zero_grad()
         print(hit_mrr(hits, starttime), end='       ')
-    print(f'\r         {mode}-{epoch}  ' + hit_mrr(hits, starttime) + '     ')
-    with open(logfile, 'a') as log:
-        log.write(f'{mode}-{epoch}  ' + hit_mrr(hits, starttime) + '\n')
+    if not decode:
+        print(f'\r         {mode}-{epoch}  ' + hit_mrr(hits, starttime) + '     ')
+        with open(logfile, 'a') as log:
+            log.write(f'{mode}-{epoch}  ' + hit_mrr(hits, starttime) + '\n')
     return pred_line
 
 
